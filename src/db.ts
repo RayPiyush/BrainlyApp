@@ -28,15 +28,10 @@ const linkSchema=new Schema({
     userId:{type:Types.ObjectId,ref:'User',required:true}
 })
 
-const userModel=mongoose.model("user",userSchema);
-const contentModel=mongoose.model("content",contentSchema);
-const tagModel=mongoose.model("tag",tagSchema);
-const linkModel=mongoose.model("link",linkSchema);
+export const userModel=mongoose.model("user",userSchema);
+export const contentModel=mongoose.model("content",contentSchema);
+export const tagModel=mongoose.model("tag",tagSchema);
+export const linkModel=mongoose.model("link",linkSchema);
 
-module.exports={
-    userModel,
-    contentModel,
-    tagModel,
-    linkModel
-}
+
 
