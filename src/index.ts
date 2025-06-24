@@ -1,14 +1,12 @@
-import dotenv from 'dotenv';
 import express from "express";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import {userModel} from "./db";
-
-dotenv.config();
+import {JWT_PASSWORD} from "./config";
 const app=express();
 import { Request, Response } from "express";
-import {JWT_PASSWORD} from "./config";
+//const JWT_PASSWORD = process.env.JWT_PASSWORD;
 
 
 app.post("/api/v1/signup",async (req:Request,res:Response):Promise<any>=>{
@@ -70,9 +68,14 @@ app.post("/api/v1/signin",async (req:Request,res:Response):Promise<any>=>{
             })
         }
 
+        if (!JWT_PASSWORD) {
+            throw new Error("JWT_PASSWORD is not defined in the .env file");
+        }
+        
         const token=jwt.sign({
             id:user._id
-        },JWT_PASSWORD);
+        },JWT_PASSWORD,{expiresIn: '2 days', 
+     });
 
         res.json({
             token:token
