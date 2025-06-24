@@ -6,6 +6,7 @@ import {userModel} from "./db";
 import {JWT_PASSWORD} from "./config";
 const app=express();
 import { Request, Response } from "express";
+import { userMiddleware } from "./middleware";
 //const JWT_PASSWORD = process.env.JWT_PASSWORD;
 
 
@@ -89,8 +90,13 @@ app.post("/api/v1/signin",async (req:Request,res:Response):Promise<any>=>{
     }
 })
 
-app.post("/api/v1/content",(req,res)=>{
-
+app.post("/api/v1/content",userMiddleware,(req:Request,res:Response)=>{
+    try{
+        
+    }
+    catch(error){
+        console.log(error);
+    }
 })
 
 app.get("/api/v1/content",(req,res)=>{
